@@ -1,0 +1,91 @@
+<!--     <div id='matrixContainer'> </div>
+    <div id='info'> </div>
+
+    <div id='bars'> </div>
+    <div id='beats'> </div>
+    <input type="text" id="indexBox">
+    <button onClick="go(2)">2</button>
+    <button onClick="playMakeRemixBeats()">Play Maker Remix Beats</button>
+    <button onClick="playMakeRemixBars()">Play Remix Bars</button>
+    <button onClick="playMakeRemix(true)">Play Reverse Remix</button>
+    <button onClick="life()">Life!</button>
+    <br />
+    <button onClick="clearMatrix()">clear</button>
+    <button onClick="player.stop()">Stop!</button> -->
+
+    <section class="content-block">
+        <div class="container">
+        
+            <ul class="nav nav-tabs text-center" role="tablist" id="myTab">
+                    <li class="active"><a href="#tab1" role="tab" data-toggle="tab">Bars</a></li>
+                    <li><a href="#tab2" role="tab" data-toggle="tab">Beats</a></li>
+                    <li><a href="#tab3" role="tab" data-toggle="tab">sixTeen</a></li>
+            </ul>
+            
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="tab1">
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3 col-sm-12 text-center" id="matrixContainer">
+                        </div><!-- /.col -->
+                        <div class="col-md-6 col-md-offset-3 col-sm-12">
+                            <div class='text-center' id='info'></div>
+                            <div class="editContent text-center play1" onclick="createBeatsMatrix(remixed)">
+                                <h3>Play</h3>
+                            </div>
+                            <div class="editContent text-center">
+                                <p>Each matrix cell plays four bars of a song when pressed.</p>
+                            </div>
+                        </div> <!-- /.col  -->
+                    </div><!-- /.row -->
+                </div><!-- /#tab1 -->
+                
+                <div class="tab-pane fade" id="tab2">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2 col-sm-12 text-center" id="matrixContainer2">
+                        </div><!-- /.col -->
+                        <div class="col-md-6 col-md-offset-3 col-sm-12">
+                            <div class="editContent text-center play2" onclick="createBeatsMatrix(remixed)">
+                                <h3>Play</h3>
+                            </div>
+                            <div class="editContent text-center">
+                                <p>Each matrix cell plays one beat of a song when pressed.</p>
+                            </div>
+                        </div> <!-- /.col  -->
+                    </div><!-- /.row -->
+                </div><!-- /#tab2 -->
+                
+                <div class="tab-pane fade" id="tab3">
+                    <div class="row">
+                        <div class="col-md-8 col-md-offset-2 col-sm-12 text-center" id="matrixContainer3">
+                        </div><!-- /.col -->
+                        <div class="col-md-6 col-md-offset-3 col-sm-12">
+                            <div id='info'></div>
+                            <div class="editContent text-center play3">
+                                <div>Choose: </div>
+                                <span onclick="createSixteenBeatsMatrix(remixed)">sixTeenBeats</span>
+                                <span>&nbsp;|&nbsp;</span>
+                                <span onclick="createSixteenBarsMatrix(remixed)">sixTeenBars</span>
+                            </div>
+                            <div class='text-center sixteenBarsBtns'>
+                                <button type="button" class="btn btn-primary-outline" onclick="playMakeRemix(false,'bars',matrix3)">Play Remix</button>
+                                <button type="button" class="btn btn-success-outline" onclick="playMakeRemix(true,'bars',matrix3)">Reverse</button>
+                                <button type="button" class="btn btn-success-outline" onclick="clearMatrix(matrix3)">Clear</button>
+                            </div>
+                            <div class='text-center sixteenBeatsBtns'>
+                                <button type="button" class="btn btn-primary-outline" onclick="playMakeRemix(false,'beats',matrix3)">Play Remix</button>
+                                <button type="button" class="btn btn-success-outline" onclick="playMakeRemix(true,'beats',matrix3)">Reverse</button>
+                                <button type="button" class="btn btn-success-outline" onclick="clearMatrix(matrix3)">Clear</button>
+                            </div>
+                            <div class="editContent text-center">
+                                <p>Set the matrix cells you want to hear to a highlighted 'on' position.</p>
+                            </div>
+                        </div> <!-- /.col  -->
+                        
+                    </div><!-- /.row -->
+                </div><!-- /#tab3 -->
+                
+                
+            </div><!-- /.tab-content -->
+            
+        </div><!-- /.container -->
+    </section>

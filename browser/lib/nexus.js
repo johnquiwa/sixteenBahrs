@@ -1,0 +1,3 @@
+nx.onload = function(){
+	init();
+}
