@@ -23,8 +23,5 @@ module.exports = {
         "clientID": process.env.GOOGLE_CLIENT_ID,
         "clientSecret": process.env.GOOGLE_CLIENT_SECRET,
         "callbackURL": process.env.CALLBACK_URL
-    },
-    "ECHONEST": {
-        "clientID": process.env.ECHONEST_CLIENT_ID
     }
 };
