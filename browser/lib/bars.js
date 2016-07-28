@@ -1,5 +1,5 @@
-var echo = 'QVCUSUPFLPYYHBVCY';
-var trackID = 'spotify:track:4B0JvthVoAAuygILe3n4Bs';
+var echo = '8351a46084a346d3afcd545340a58201';
+var trackID = '4B0JvthVoAAuygILe3n4Bs';
 var trackURL = '/audio/whatdoyoumean.mp3';
 
 var remixer;
@@ -207,35 +207,44 @@ function createSixteenBeatsMatrix (remixed) {
 }
 
 function init() {
-    var contextFunction = window.AudioContext || window.webkitAudioContext;
-    if (contextFunction === undefined) {
-        $("#info").text("Sorry, this app needs advanced web audio. Your browser doesn't"
-            + " support it. Try the latest version of Chrome?");
-    } else {
-        var context = new contextFunction();
-        remixer = createJRemixer(context, $, echo);
-        player = remixer.getPlayer();
-        $("#info").text("Loading analysis data...");
 
-        remixer.remixTrackById(trackID, trackURL, function(t, percent) {
-            track = t;
 
-            $("#info").text(percent + "% of the track loaded");
-            if (percent == 100) {
-                $("#info").text(percent + "% of the track loaded, remixing...");
-            }
+        var contextFunction = window.AudioContext || window.webkitAudioContext;
+        if (contextFunction === undefined) {
+            $("#info").text("Sorry, this app needs advanced web audio. Your browser doesn't"
+                + " support it. Try the latest version of Chrome?");
+        } else {
+            var context = new contextFunction();
+            remixer = createJRemixer(context, $, echo);
+            player = remixer.getPlayer();
+            $("#info").text("Loading analysis data...");
 
-            if (track.status == 'ok') {
-                // $("#bars").text("The track has " + track.analysis.bars.length + " bars");
-                // $("#beats").text("The track has " + track.analysis.beats.length + " beats");
-                $("#info").text("Analysis complete!");
-                remixed = track.analysis;
-                console.log(remixed)
-                createBarsMatrix(remixed);
-            //     createBeatsMatrix(remixed);
-            }
-        });
-    }
+            var socket = io.connect('http://localhost:1337');
+            socket.on('analysis', function (data) {
+                console.log(data);
+                console.log('hey');
+                  
+                trackAnalysis = data;
+                remixer.remixTrackById(trackAnalysis, trackURL, function(t, percent) {
+                    track = t;
+
+                    $("#info").text(percent + "% of the track loaded");
+                    if (percent == 100) {
+                        $("#info").text(percent + "% of the track loaded, remixing...");
+                    }
+
+                    if (track.status == 'ok') {
+                        // $("#bars").text("The track has " + track.analysis.bars.length + " bars");
+                        // $("#beats").text("The track has " + track.analysis.beats.length + " beats");
+                        $("#info").text("Analysis complete!");
+                        remixed = track.analysis;
+                        console.log(remixed)
+                        createBarsMatrix(remixed);
+                    //     createBeatsMatrix(remixed);
+                    }
+                });
+            });
+        };
 }
 
 numBeats = function numBeats(num,remixed){

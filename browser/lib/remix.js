@@ -8,46 +8,22 @@ function createJRemixer(context, jquery, apiKey) {
 
     var remixer = {
         // If you have an EN TRack ID and the location of the audio.
-        remixTrackById: function(trackID, trackURL, callback) {
-            var track;
-            var url = '//developer.echonest.com/api/v4/track/profile?format=json&bucket=audio_summary'
+        remixTrackById: function(trackAnalysis, trackURL, callback) {
+            var track = {};
+            var url = '//api.spotify.com/v1/audio-features'
+            console.log('hey');
 
            var retryCount = 3;
            var retryInterval = 3000;
 
-            function lookForAnalysis(trackID, trackURL, callback) {
-                $.getJSON(url, {id:trackID, api_key:apiKey}, function(data) {
-                    var analysisURL = data.response.track.audio_summary.analysis_url;
-                    track = data.response.track;
-
-                    // This call is proxied through the yahoo query engine.
-                    // This is temporary, but works.
-                    $.getJSON("//query.yahooapis.com/v1/public/yql",
-                        { q: "select * from json where url=\"" + analysisURL + "\"", format: "json"},
-                        function(data) {
-                            if (data.query.results != null) {
-                                track.analysis = data.query.results.json;
-                                console.log("Analysis obtained...");
-                                remixer.remixTrack(track, trackURL, callback);
-                            }
-                            else {
-                                retryCount = retryCount - 1;
-                                retryInterval = retryInterval + retryInterval;
-                                if (retryCount > 0) {
-                                    console.log('Analysis pending, trying again')
-                                    callback(track, "Analysis pending, retrying - 0");
-                                    setTimeout(function () {
-                                        lookForAnalysis(trackID, trackURL, callback);
-                                    }, retryInterval);
-                                } else {
-                                    callback(track, "Error:  no analysis data returned for that track - 0");
-                                    console.log('error', 'No analysis data returned:  try again, or try another trackID');
-                                }
-                            }
-                    }); // end yahoo proxy getJson
-                });
+            function lookForAnalysis(trackAnalysis, trackURL, callback) {
+                track.analysis = trackAnalysis;
+                track.status = 'complete';
+                console.log(track)
+                console.log("Analysis obtained...");
+                remixer.remixTrack(track, trackURL, callback);
             } // end lookForAnalysis
-            lookForAnalysis(trackID, trackURL, callback);
+            lookForAnalysis(trackAnalysis, trackURL, callback);
         },
 
         // If you have a SoundCloud URL.
@@ -96,6 +72,7 @@ function createJRemixer(context, jquery, apiKey) {
         },
 
         remixTrack : function(track, trackURL, callback) {
+            console.log(track);
             function fetchAudio(url) {
                 var request = new XMLHttpRequest();
                 trace("fetchAudio " + url);
@@ -105,6 +82,7 @@ function createJRemixer(context, jquery, apiKey) {
                 this.request = request;
 
                 request.onload = function() {
+                    console.log('load');
 
                     trace('audio loaded');
                      if (false) {

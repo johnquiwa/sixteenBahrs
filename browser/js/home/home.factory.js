@@ -12,13 +12,14 @@ app.factory('RemixFactory', function ($http) {
             // If you have an EN TRack ID and the location of the audio.
             remixTrackById: function(trackID, trackURL, callback) {
                 var track;
-                var url = '//developer.echonest.com/api/v4/track/profile?format=json&bucket=audio_summary'
+                var url = '//api.spotify.com/v1/audio-features'
 
                var retryCount = 3;
                var retryInterval = 3000;
 
                 function lookForAnalysis(trackID, trackURL, callback) {
                     $.getJSON(url, {id:trackID, api_key:apiKey}, function(data) {
+                        console.log(data)
                         var analysisURL = data.response.track.audio_summary.analysis_url;
                         track = data.response.track;
 
