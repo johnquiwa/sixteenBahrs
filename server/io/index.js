@@ -1,7 +1,9 @@
 'use strict';
+var path = require('path');
 var socketio = require('socket.io');
 var io = null;
-var SPOTIFY = require('./env/production.js')["SPOTIFY"];
+var SPOTIFY_PATH = path.join(__dirname, './env/production.js');
+var SPOTIFY = require(SPOTIFY_PATH)["SPOTIFY"];
 var client_id = SPOTIFY["clientID"];
 var client_secret = SPOTIFY["clientSecret"];
 
