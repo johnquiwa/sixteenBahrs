@@ -2,7 +2,7 @@
 var path = require('path');
 var socketio = require('socket.io');
 var io = null;
-var SPOTIFY_PATH = path.join(__dirname, './env/production.js');
+var SPOTIFY_PATH = path.join(__dirname, '../env/production.js');
 var SPOTIFY = require(SPOTIFY_PATH)["SPOTIFY"];
 var client_id = SPOTIFY["clientID"];
 var client_secret = SPOTIFY["clientSecret"];
@@ -15,6 +15,7 @@ module.exports = function (server) {
 
     io.on('connection', function (socket) {
     	console.log('connected');
+    	console.log(client_id)
         // Now have access to socket, wowzers!
         var request = require('request');
 
@@ -30,6 +31,7 @@ module.exports = function (server) {
 				};
 
 				request.post(authOptions, function(error, response, body) {
+					console.log(response);
 	        if (!error && response.statusCode === 200) {
 
 	            // use the access token to access the Spotify Web API

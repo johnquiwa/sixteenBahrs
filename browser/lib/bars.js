@@ -219,7 +219,7 @@ function init() {
             player = remixer.getPlayer();
             $("#info").text("Loading analysis data...");
 
-            var socket = io();
+            var socket = io.connect(window.location.pathname);
             socket.on('analysis', function (data) {
                 console.log(data);
                 console.log('hey');
