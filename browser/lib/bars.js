@@ -219,7 +219,7 @@ function init() {
             player = remixer.getPlayer();
             $("#info").text("Loading analysis data...");
 
-            var socket = io.connect('http://localhost:1337');
+            var socket = io.connect('http://http://sixteenbahrs.herokuapp.com/');
             socket.on('analysis', function (data) {
                 console.log(data);
                 console.log('hey');
